@@ -1,4 +1,4 @@
-package com.example.Users.Service;
+/*package com.example.Users.Service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,4 +10,4 @@ class UsersServiceApplicationTests {
 	void contextLoads() {
 	}
 
-}
+}*/

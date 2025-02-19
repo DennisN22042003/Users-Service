@@ -46,16 +46,16 @@ public class UserController {
         return ResponseEntity.ok(exists);
     }
 
-    // Endpoint to fetch a User by userId
-    @GetMapping("/{userId}")
+    // Endpoint to fetch a User by userId -> This is returning "500 Internal Server Error"
+    @GetMapping("id/{userId}")
     public ResponseEntity<UserMetadata> getUserById(@PathVariable String userId) {
         return userRepository.findById(userId)
                     .map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
     }
 
-    // Endpoint to fetch a User by username
-    @GetMapping("/{username}")
+    // Endpoint to fetch a User by username -> This is returning "500 Internal Server Error"
+    @GetMapping("account/{username}")
     public ResponseEntity<UserMetadata> getUserByUsername(@PathVariable String username) {
         return userRepository.findByUsername(username)
                     .map(ResponseEntity::ok)
