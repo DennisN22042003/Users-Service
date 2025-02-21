@@ -29,12 +29,12 @@ public class UserJoinedEventListener {
         if (userJoinedDTO == null) {
             System.out.println("❌ Deserialization failed: userJoinedDTO is null");
         } else {
-            System.out.println("📩 Received User-Joined Event for User: " + userJoinedDTO.getUserId() + " for Event: " + userJoinedDTO.getEventId());
+            System.out.println("📩 Received User-Joined Event for Event: " +  userJoinedDTO.getEventId() + " for User: " + userJoinedDTO.getUserId());
         }
 
         // Make sure userId and eventId are Strings (UUID)
-        String userId = userJoinedDTO.getUserId();
         String eventId = userJoinedDTO.getEventId();
+        String userId = userJoinedDTO.getUserId();
 
         // Find User by ID in the database
         Optional<UserMetadata> optionalEvent = userRepository.findById(userId);
@@ -51,8 +51,10 @@ public class UserJoinedEventListener {
             if (userMetadata.getEventIds() == null) {
                 userMetadata.setEventIds(new ArrayList<>());
             }
-            // Add the new eventId to the List
-            userMetadata.getEventIds().add(userJoinedDTO.getEventId());
+            // Add the new eventId to the List only if it's not already present
+            if (!userMetadata.getEventIds().contains(eventId)) {
+                userMetadata.getEventIds().add(eventId);
+            }
 
             // Save the updated user metadata with Event ID(s)
             userRepository.save(userMetadata);
