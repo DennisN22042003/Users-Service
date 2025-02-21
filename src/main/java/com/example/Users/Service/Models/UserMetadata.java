@@ -1,5 +1,8 @@
 package com.example.Users.Service.Models;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,6 +13,7 @@ public class UserMetadata {
     private String username;
     private String email;
     private String password;
+    private List<String> eventIds = new ArrayList<>();
     // Add profile picture URL;
     // Add birthday
 
@@ -44,5 +48,12 @@ public class UserMetadata {
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<String> getEventIds() {
+        return eventIds;
+    }
+    public void setEventIds(List<String> eventIds) {
+        this.eventIds = eventIds;
     }
 }
