@@ -28,8 +28,11 @@ public class UserController {
     
     // Endpoint for new user creation
     @PostMapping("/create")
-    public ResponseEntity<Map<String, String>> createUser(@RequestParam String username, @RequestParam String email) {
-        UserMetadata userMetadata = userService.createUser(username, email);
+    public ResponseEntity<Map<String, String>> createUser(@RequestBody Map<String, String> payload) {
+        String username = payload.get("username");
+        String email = payload.get("email");
+
+        UserMetadata userMetadata = userService.createUser(username, userId);
         String userId = userMetadata.getId();
         
         // Construct a response with userId
