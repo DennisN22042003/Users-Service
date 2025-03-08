@@ -32,7 +32,7 @@ public class UserController {
         String username = payload.get("username");
         String email = payload.get("email");
 
-        UserMetadata userMetadata = userService.createUser(username, userId);
+        UserMetadata userMetadata = userService.createUser(username, email);
         String userId = userMetadata.getId();
         
         // Construct a response with userId
