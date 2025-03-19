@@ -14,6 +14,7 @@ public class UserMetadata {
     private String email;
     private String password;
     private List<String> eventIds = new ArrayList<>();
+    private List<String> friendIds = new ArrayList<>();
     // Add profile picture URL;
     // Add birthday
 
@@ -55,5 +56,12 @@ public class UserMetadata {
     }
     public void setEventIds(List<String> eventIds) {
         this.eventIds = eventIds;
+    }
+
+    public List<String> getFriendIds() {
+        return friendIds;
+    }
+    public void setFriendIds(List<String> friendIds) {
+        this.friendIds = friendIds;
     }
 }
