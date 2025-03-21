@@ -18,12 +18,13 @@ public class UserService {
     private UserRepository userRepository;
 
     // Create a new user
-    public UserMetadata createUser(String username, String email) {
+    public UserMetadata createUser(String username, String email, String firebaseUid) {
         // Save User Metadata in MongoDB
         UserMetadata metadata = new UserMetadata();
         metadata.setId(UUID.randomUUID().toString());
         metadata.setUsername(username);
         metadata.setEmail(email);
+        metadata.setFirebaseUid(firebaseUid);
 
         // Save and return the new user
         UserMetadata savedUserMetadata = userRepository.save(metadata);
@@ -80,6 +81,14 @@ public class UserService {
         UserMetadata user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         user.setUsername(newUsername);
+        userRepository.save(user);
+    }
+
+    // Update a user's firebase UID
+    public void updateFirebaseUid(String userId, String newFirebaseUid) {
+        UserMetadata user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        user.setFirebaseUid(newFirebaseUid);
         userRepository.save(user);
     }
 

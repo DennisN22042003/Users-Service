@@ -33,8 +33,9 @@ public class UserController {
     public ResponseEntity<Map<String, String>> createUser(@RequestBody Map<String, String> payload) {
         String username = payload.get("username");
         String email = payload.get("email");
+        String firebaseUid = payload.get("firebaseUid");
 
-        UserMetadata userMetadata = userService.createUser(username, email);
+        UserMetadata userMetadata = userService.createUser(username, email, firebaseUid);
         String userId = userMetadata.getId();
         
         // Construct a response with userId
@@ -78,7 +79,7 @@ public class UserController {
         }
     }
 
-    // Endpoint to fetch a User by username (not yet useable)
+    // Endpoint to fetch a User by username
     @GetMapping("account/{username}")
     public ResponseEntity<UserMetadata> getUserByUsername(@PathVariable String username) {
         return userRepository.findByUsername(username)
@@ -105,6 +106,17 @@ public class UserController {
     public ResponseEntity<List<UserMetadata>> getFriends(@PathVariable String userId) {
         List<UserMetadata> friends = userService.getFriends(userId);
         return ResponseEntity.ok(friends);
+    }
+
+    // Endpoint to update a User's FirebaseUID to allow for account linking
+    @PatchMapping("/updateFUID/{userId}")
+    public ResponseEntity<Void> updateFirebaseUid(@PathVariable String userId, @RequestBody Map<String, String> payload) {
+        String newFirebaseUid = payload.get("newFirebaseUid");
+        if (newFirebaseUid == null || newFirebaseUid.trim().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        userService.updateFirebaseUid(userId, newFirebaseUid);
+        return ResponseEntity.ok().build();
     }
 
     // Future work: Delete a user by Id & username

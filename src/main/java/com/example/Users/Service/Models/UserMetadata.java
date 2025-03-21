@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserMetadata {
     @Id
     private String id;
+    private String firebaseUid;
     private String username;
     private String email;
     private String password;
@@ -37,6 +38,13 @@ public class UserMetadata {
         this.id = id;
     }
 
+    public String getFirebaseUid() {
+        return firebaseUid;
+    }
+    public void setFirebaseUid(String firebaseUid) {
+        this.firebaseUid = firebaseUid;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -54,9 +62,7 @@ public class UserMetadata {
     public List<String> getEventIds() {
         return eventIds;
     }
-    public void setEventIds(List<String> eventIds) {
-        this.eventIds = eventIds;
-    }
+    public void setEventIds(List<String> eventIds) {this.eventIds = eventIds;}
 
     public List<String> getFriendIds() {
         return friendIds;
